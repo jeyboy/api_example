@@ -1,4 +1,4 @@
-require 'open-uri'
+require 'rest-client'
 
 module API
   class Tags < Grape::API
@@ -11,8 +11,8 @@ module API
       end
 
       get :parse do
-        i = 0
-        html_text = open(params['url'])
+        html_text = RestClient.get(params['url'])
+
         doc = ::Nokogiri::HTML.parse(html_text)
 
         ActiveRecord::Base.transaction do
@@ -25,8 +25,6 @@ module API
             Tag.create!(body: body)
           end
         end
-
-        i = 0
       end
 
       # desc 'Return a tag'
