@@ -1,18 +1,24 @@
-# api_example
+# README
 
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-## Getting Started
+Things you may want to cover:
 
-To start the API server:
+* Ruby version
 
-    bundle exec rackup
+* System dependencies
 
-Now you can curl the API:
+* Configuration
 
-    curl localhost:9292/api/tags/parse/url
-    curl localhost:9292/api/tags
+* Database creation
 
-## Swagger
+* Database initialization
 
-To access the Swagger doc that is generated automatically with the `grape-swagger` gem, navigate your browser to
-http://localhost:9292/api/swagger_doc.
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...

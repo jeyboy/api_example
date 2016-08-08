@@ -1,8 +1,5 @@
-require './api/root'
+# This file is used by Rack-based servers to start the application.
 
-use ActiveRecord::ConnectionAdapters::ConnectionManagement
+require_relative 'config/environment'
 
-dbconfig = YAML::load(File.open('./config/database.yml'))
-ActiveRecord::Base.establish_connection(dbconfig['development'])
-
-run API::Root
+run Rails.application
