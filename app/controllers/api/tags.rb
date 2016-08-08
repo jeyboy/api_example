@@ -1,3 +1,5 @@
+require 'open-uri'
+
 module API
   class Tags < Grape::API
     resource :tags do
@@ -9,7 +11,22 @@ module API
       end
 
       get :parse do
-        # parse page from url
+        i = 0
+        html_text = open(params['url'])
+        doc = ::Nokogiri::HTML.parse(html_text)
+
+        ActiveRecord::Base.transaction do
+          doc.css('h1,h2,h3,a').map do |tag|
+            body = case tag.name
+              when 'a' then tag['href']
+              else tag.text
+            end
+
+            Tag.create!(body: body)
+          end
+        end
+
+        i = 0
       end
 
       # desc 'Return a tag'
