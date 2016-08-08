@@ -12,12 +12,11 @@ RSpec.configure do |config|
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
 
-  # config.before(:each) do
-  #   stub_request(:get, /api.github.com/).
-  #       with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-  #       to_return(status: 200, body: "stubbed response", headers: {})
-  # end
-
+  config.before(:each) do
+    stub_request(:get, "https://ok.ru/").
+        with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby'}).
+        to_return(:status => 200, :body => File.read(Rails.root.join('1.html')), :headers => {})
+  end
 
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
