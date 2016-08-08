@@ -19,7 +19,7 @@ describe API::Tags do
       Tag.create(body: 'soso2')
 
       get '/api/tags'
-      expect_json(Tag.all.as_json)
+      expect_json(Tag.all.as_json.map(&:symbolize_keys))
     end
   end
 
