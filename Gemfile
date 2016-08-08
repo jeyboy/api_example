@@ -33,6 +33,7 @@ group :development, :test do
   gem 'rspec'
   gem 'airborne'
   gem 'webmock'
+  gem 'database_cleaner'
 end
 
 group :development do

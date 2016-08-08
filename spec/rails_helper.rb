@@ -5,6 +5,8 @@ require 'rspec/autorun'
 
 require 'webmock/rspec'
 
+require 'database_cleaner'
+
 WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
@@ -16,6 +18,17 @@ RSpec.configure do |config|
     stub_request(:get, "https://ok.ru/").
         with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby'}).
         to_return(:status => 200, :body => File.read(Rails.root.join('1.html')), :headers => {})
+  end
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
   end
 
   config.expect_with :rspec do |expectations|
