@@ -1,5 +1,7 @@
+require 'rails_helper'
+
 require 'airborne'
-require_relative '../app/controllers//api/root'
+require_relative '../app/controllers/api/root'
 
 Airborne.configure do |config|
   config.rack_app = API::Root
@@ -13,11 +15,11 @@ describe API::Tags do
     end
 
     it 'returns all tags' do
-      Tag.build(body: 'soso1')
-      Tag.build(body: 'soso2')
+      Tag.create(body: 'soso1')
+      Tag.create(body: 'soso2')
 
       get '/api/tags'
-      expect_json(Tag.all.to_json)
+      expect_json(Tag.all.as_json)
     end
   end
 

@@ -1,3 +1,4 @@
+require 'nokogiri'
 require 'rest-client'
 
 module API
@@ -29,7 +30,7 @@ module API
 
       desc 'Return all tags'
       get do
-        Tag.all
+        ::Tag.all
       end
     end
   end
