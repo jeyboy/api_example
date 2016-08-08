@@ -7,10 +7,10 @@ module API
       desc 'Parse new tags'
 
       params do
-        requires :url, type: String, desc: 'Page url'
+        requires :url, type: String, desc: 'Page url', allow_blank: false
       end
 
-      get :parse do
+      put do
         html_text = RestClient.get(params['url'])
 
         doc = ::Nokogiri::HTML.parse(html_text)
@@ -26,18 +26,6 @@ module API
           end
         end
       end
-
-      # desc 'Return a tag'
-      #
-      # params do
-      #   requires :id, type: Integer, desc: 'Tag id'
-      # end
-      #
-      # route_param :id do
-      #   get do
-      #     Tag.find(params[:id])
-      #   end
-      # end
 
       desc 'Return all tags'
       get do
